@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:55:47 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/14 15:09:24 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/14 15:36:29 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exit_error(struct termios *orig_termios,
 	else
 		ft_putendl_fd("error", 2);
 	disable_raw_mode(orig_termios);
-	delete_termcap(term);
+	delete_term_struct(term);
 	exit(1);
 }
 

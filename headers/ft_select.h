@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/14 15:09:21 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/14 16:04:33 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@ typedef struct	s_termcaps
 	char	*godownstr;
 	char	*gorightstr;
 	char	*goleftstr;
+	char	*invvidstr;
+	char	*ulstr;
+	char	*resetstr;
 }				t_termcaps;
 
 /*
 ** init.c
 */
 
-void			init_termcap(struct termios *orig_termios, t_termcaps **term);
-void			delete_termcap(t_termcaps **term);
+void			init_termcap(struct termios *orig_termios);
+void			init_term_struct(struct termios *orig_termios,
+		t_termcaps **term);
+void			delete_term_struct(t_termcaps **term);
 
 /*
 ** utils.c

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:40:51 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/14 15:09:22 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/14 16:04:08 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,16 @@ static void	mainloop(struct termios *orig_termios, t_termcaps **term)
 				break ;
 		}
 		else
-			ft_putstr(keybuff);
+		{
+			if (keybuff[0] == 'i')
+				ft_putstr((*term)->invvidstr);
+			else if (keybuff[0] == 'o')
+				ft_putstr((*term)->resetstr);
+			else if (keybuff[0] == 'u')
+				ft_putstr((*term)->ulstr);
+			else
+				ft_putstr(keybuff);
+		}
 	}
 	if (read_size == -1)
 		exit_error(orig_termios, term, "read() error");
@@ -51,27 +60,17 @@ static void	mainloop(struct termios *orig_termios, t_termcaps **term)
 int			main(int argc, char **argv)
 {
 	struct termios	orig_termios;
-	char			*termtype;
-	int				success;
 	t_termcaps		*term;
 
 	(void)argc;
 	(void)argv;
 	term = NULL;
-	enableRawMode(&orig_termios);
-	termtype = getenv("TERM");
-	if (!termtype)
-		exit_error(&orig_termios, NULL, "TERM env variable is not set !");
-	ft_fminiprint(1, "Term type : %l0s%\n", termtype);
-	success = tgetent(NULL, termtype);
-	if (success < 0)
-		exit_error(&orig_termios, NULL, "Can't access the termcap database.");
-	if (success == 0)
-		exit_error(&orig_termios, NULL, "This terminal type is not defined.");
-	init_termcap(&orig_termios, &term);
+	enable_raw_mode(&orig_termios);
+	init_termcap(&orig_termios);
+	init_term_struct(&orig_termios, &term);
 	mainloop(&orig_termios, &term);
 	disable_raw_mode(&orig_termios);
-	delete_termcap(&term);
+	delete_term_struct(&term);
 	ft_putchar('\n');
 	return (0);
 }
