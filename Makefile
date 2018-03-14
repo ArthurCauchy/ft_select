@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/03/14 09:42:06 by acauchy          ###   ########.fr        #
+#    Updated: 2018/03/14 12:23:13 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,10 @@ HEADER_NAME = ft_select.h
 HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 
 SRC_PATH = srcs
-SRC_NAME = main.c
+SRC_NAME = main.c \
+		   init.c \
+		   utils.c \
+		   keyboard.c
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 OBJ_PATH = objs
@@ -42,6 +45,8 @@ LIBFT_PATH = libft
 LIBFT_INCLUDE = -I$(LIBFT_PATH)
 LIBFT = -L$(LIBFT_PATH) -lft
 
+LIBTERMCAP = -ltermcap
+
 all: compile
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
@@ -49,7 +54,7 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
 
 $(NAME): $(OBJ)
 	@echo -e $(COLOR_YELLOW)"Linking "$@"..."$(COLOR_RESET)
-	$(CC) $^ $(LIBFT) -o $@
+	$(CC) $^ $(LIBTERMCAP) $(LIBFT) -o $@
 	@echo -e $(COLOR_GREEN)$(NAME)" successfully created."$(COLOR_RESET)
 
 $(OBJ_PATH):
