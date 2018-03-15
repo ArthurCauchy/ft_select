@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/15 13:26:52 by arthur           ###   ########.fr       */
+/*   Updated: 2018/03/15 17:43:19 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@
 
 typedef struct	s_termcaps
 {
-	char	*clearstr;
+	char	*hidecurstr;
+	char	*showcurstr;
+	char	*clearlinestr;
 	char	*gotostr;
-	char	*goupstr;
-	char	*godownstr;
-	char	*gorightstr;
-	char	*goleftstr;
-	char	*invvidstr;
+	char	*gostartlinestr;
+	char	*invstr;
 	char	*ulstr;
 	char	*resetstr;
 }				t_termcaps;
@@ -37,6 +36,8 @@ typedef struct	s_termcaps
 typedef struct	s_wordlist
 {
 	char				*word;
+	char				isselected;
+	char				iscurrent;
 	struct s_wordlist	*next;
 	struct s_wordlist	*prev;
 }				t_wordlist;
@@ -46,7 +47,7 @@ typedef struct	s_wordlist
 */
 
 t_wordlist		*wordlist_new(char *str);
-t_wordlist		*wordlist_delete(t_wordlist *elem);
+void			wordlist_delete(t_wordlist *elem);
 t_wordlist		*wordlist_add_elem(t_wordlist **list, t_wordlist *new);
 void			wordlist_delete_elem(t_wordlist *elem);
 
@@ -58,6 +59,7 @@ void			init_termcap(struct termios *orig_termios);
 void			init_term_struct(struct termios *orig_termios,
 		t_termcaps **term);
 void			delete_term_struct(t_termcaps **term);
+void			init_wordlist(t_wordlist **wordlist, char **argv);
 
 /*
 ** utils.c
@@ -73,5 +75,18 @@ void			disable_raw_mode(struct termios *orig_termios);
 */
 
 int				which_arrowkey(char *keybuff);
+
+/*
+** draw.c
+*/
+
+void			draw_wordlist(t_termcaps *term, t_wordlist **wordlist);
+void			draw_clearline(t_termcaps *term);
+
+/*
+** signals.c
+*/
+
+void			init_signals(struct termios *orig_termios);
 
 #endif
