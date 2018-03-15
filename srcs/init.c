@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/14 16:04:07 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/15 13:27:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,5 @@ void	delete_term_struct(t_termcaps **term)
 		*term = NULL;
 	}
 }
+
+//TODO init wordlist here

@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 15:57:30 by acauchy           #+#    #+#              #
-#    Updated: 2018/02/23 13:15:03 by arthur           ###   ########.fr        #
+#    Updated: 2018/03/15 13:17:38 by arthur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRC_NAME = ft_memset.c \
 		 ft_isalnum.c \
 		 ft_isascii.c \
 		 ft_isprint.c \
+		 ft_iscntrl.c \
 		 ft_memalloc.c \
 		 ft_memdel.c \
 		 ft_strnew.c \

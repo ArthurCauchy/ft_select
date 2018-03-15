@@ -6,7 +6,7 @@
 /*   By: acauchy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 10:12:28 by acauchy           #+#    #+#             */
-/*   Updated: 2018/02/23 13:18:45 by arthur           ###   ########.fr       */
+/*   Updated: 2018/03/15 13:18:02 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int				ft_isdigit(int c);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
+int				ft_iscntrl(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 

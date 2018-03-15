@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/14 16:04:33 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/15 13:26:52 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@ typedef struct	s_termcaps
 	char	*ulstr;
 	char	*resetstr;
 }				t_termcaps;
+
+typedef struct	s_wordlist
+{
+	char				*word;
+	struct s_wordlist	*next;
+	struct s_wordlist	*prev;
+}				t_wordlist;
+
+/*
+** s_wordlist.c
+*/
+
+t_wordlist		*wordlist_new(char *str);
+t_wordlist		*wordlist_delete(t_wordlist *elem);
+t_wordlist		*wordlist_add_elem(t_wordlist **list, t_wordlist *new);
+void			wordlist_delete_elem(t_wordlist *elem);
 
 /*
 ** init.c
