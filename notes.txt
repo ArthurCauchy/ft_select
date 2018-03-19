@@ -1,7 +1,4 @@
 TODO:
--check si c'est bien un tty
 -fix segv quand lance avec env -i
--arreter le programme si aucun argument n'est passe
--faire attention au cas ou on supprime tous les choix
--debugger la liste pour pouvoir se deplacer correctement
--ne pas compter les fleches haut et bas comme des esc
+-taille de la fenetre
+-read error quand sigstop

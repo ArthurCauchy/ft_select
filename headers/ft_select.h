@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/15 17:43:19 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/19 16:35:14 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@
 # include <termcap.h>
 # include <termios.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include "libft.h"
 
 typedef struct	s_termcaps
 {
+	int		ttyfd;
 	char	*hidecurstr;
 	char	*showcurstr;
 	char	*clearlinestr;
@@ -47,9 +49,8 @@ typedef struct	s_wordlist
 */
 
 t_wordlist		*wordlist_new(char *str);
-void			wordlist_delete(t_wordlist *elem);
 t_wordlist		*wordlist_add_elem(t_wordlist **list, t_wordlist *new);
-void			wordlist_delete_elem(t_wordlist *elem);
+t_wordlist		*wordlist_delete_elem(t_wordlist **head, t_wordlist *elem);
 
 /*
 ** init.c
@@ -75,13 +76,16 @@ void			disable_raw_mode(struct termios *orig_termios);
 */
 
 int				which_arrowkey(char *keybuff);
+int				is_delkey(char *keybuff);
+int				is_esckey(char *keybuff);
 
 /*
 ** draw.c
 */
 
-void			draw_wordlist(t_termcaps *term, t_wordlist **wordlist);
-void			draw_clearline(t_termcaps *term);
+void			draw_wordlist(int fd, t_termcaps *term, t_wordlist **wordlist);
+void			draw_selected_wordlist(int fd, t_wordlist **wordlist);
+void			draw_clearline(int fd, t_termcaps *term);
 
 /*
 ** signals.c

@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:06:51 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/15 17:43:16 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/19 16:34:55 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ t_wordlist	*wordlist_new(char *str)
 	elem->next = NULL;
 	elem->prev = NULL;
 	return (elem);
-}
-
-void		wordlist_delete(t_wordlist *elem)
-{
-	free(elem->word);
-	free(elem);
 }
 
 t_wordlist	*wordlist_add_elem(t_wordlist **list, t_wordlist *new)
@@ -50,11 +44,24 @@ t_wordlist	*wordlist_add_elem(t_wordlist **list, t_wordlist *new)
 	return (*list);
 }
 
-void		wordlist_delete_elem(t_wordlist *elem)
+t_wordlist	*wordlist_delete_elem(t_wordlist **head, t_wordlist *elem)
 {
-	if (elem->next)
-		elem->next->prev = elem->prev;
+	t_wordlist	*new_curr;
+
+	new_curr = NULL;
 	if (elem->prev)
+	{
 		elem->prev->next = elem->next;
-	wordlist_delete(elem);
+		new_curr = elem->prev;
+	}	
+	if (elem->next)
+	{
+		elem->next->prev = elem->prev;
+		new_curr = elem->next;
+	}
+	if (*head == elem)
+		*head = (*head)->next;
+	free(elem->word);
+	free(elem);
+	return (new_curr);
 }

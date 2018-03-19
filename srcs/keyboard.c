@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 11:03:30 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/14 11:17:49 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/19 16:03:18 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,14 @@ int	which_arrowkey(char *keybuff)
 			return (4);
 	}
 	return (0);
+}
+
+int	is_delkey(char *keybuff)
+{
+	return (keybuff[0] == 127 || (keybuff[0] == 27 && keybuff[1] == 91 && keybuff[2] == 51));
+}
+
+int	is_esckey(char *keybuff)
+{
+	return (keybuff[0] == 27 && keybuff[1] == '\0');
 }

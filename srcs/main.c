@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:40:51 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/15 17:43:18 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/19 16:37:36 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,12 @@ static void	mainloop(struct termios *orig_termios, t_termcaps **term, t_wordlist
 	t_wordlist	*curr_word;
 
 	curr_word = *wordlist;
-	draw_wordlist(*term, wordlist);
+	draw_wordlist((*term)->ttyfd, *term, wordlist);
 	while ((read_size = read(0, &keybuff, 3)) > 0)
 	{
 		keybuff[read_size] = '\0';
-		draw_clearline(*term);
-		draw_wordlist(*term, wordlist);
-		if (ft_iscntrl(keybuff[0]))
+		if ((arrowkey_code = which_arrowkey(keybuff)))
 		{
-			arrowkey_code = which_arrowkey(keybuff);
 			if (arrowkey_code == 3)
 			{
 				curr_word->iscurrent = 0;
@@ -50,24 +47,32 @@ static void	mainloop(struct termios *orig_termios, t_termcaps **term, t_wordlist
 				}
 				curr_word->iscurrent = 1;
 			}
-			else if (keybuff[0] == 27)
-				break ;
 		}
-		else
+		else if (is_esckey(keybuff))
 		{
-			if (keybuff[0] == 'i')
-				ft_putstr((*term)->invstr);
-			else if (keybuff[0] == 32)
-				curr_word->isselected = (curr_word->isselected ? 0 : 1);
-			else if (keybuff[0] == 'o')
-				ft_putstr((*term)->resetstr);
-			else if (keybuff[0] == 'u')
-				ft_putstr((*term)->ulstr);
-			else if (keybuff[0] == 'r')
-				ft_putstr((*term)->hidecurstr);
-			else if (keybuff[0] == 't')
-				ft_putstr((*term)->showcurstr);
+			draw_clearline((*term)->ttyfd, *term);
+			break ;
 		}
+		else if (is_delkey(keybuff))
+		{
+			curr_word = wordlist_delete_elem(wordlist, curr_word);
+			if (curr_word == NULL)
+			{
+				draw_clearline((*term)->ttyfd, *term);
+				break ;
+			}
+			curr_word->iscurrent = 1;
+		}
+		else if (keybuff[0] == 32)
+			curr_word->isselected = (curr_word->isselected ? 0 : 1);
+		else if (keybuff[0] == 10)
+		{
+			draw_clearline((*term)->ttyfd, *term);
+			draw_selected_wordlist(1, wordlist);
+			break ;
+		}
+		draw_clearline((*term)->ttyfd, *term);
+		draw_wordlist((*term)->ttyfd, *term, wordlist);
 	}
 	if (read_size == -1)
 		exit_error(orig_termios, term, "read() error");
@@ -79,7 +84,8 @@ int			main(int argc, char **argv)
 	t_termcaps		*term;
 	t_wordlist		*wordlist;
 
-	(void)argc;
+	if (argc < 2)
+		return (0);
 	term = NULL;
 	wordlist = NULL;
 	enable_raw_mode(&orig_termios);
@@ -90,6 +96,5 @@ int			main(int argc, char **argv)
 	mainloop(&orig_termios, &term, &wordlist);
 	disable_raw_mode(&orig_termios);
 	delete_term_struct(&term);
-	ft_putchar('\n');
 	return (0);
 }

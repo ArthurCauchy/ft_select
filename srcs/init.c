@@ -6,13 +6,31 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/15 17:16:02 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/19 15:03:09 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	init_termcap(struct termios *orig_termios)
+static void	init_tty(struct termios *orig_termios, t_termcaps **term)
+{
+	int	fd;
+
+	if (!isatty(0))
+	{
+		free(*term);
+		exit_error(orig_termios, NULL, "Not a tty !");
+	}
+	fd = open(ttyname(0), O_RDWR);
+	if (fd < 0)
+	{
+		free(*term);
+		exit_error(orig_termios, NULL, "Can't open term file !");
+	}
+	(*term)->ttyfd = fd;
+}
+
+void		init_termcap(struct termios *orig_termios)
 {
 	char	*termtype;
 	int		success;
@@ -27,10 +45,11 @@ void	init_termcap(struct termios *orig_termios)
 		exit_error(orig_termios, NULL, "This terminal type is not defined.");
 }
 
-void	init_term_struct(struct termios *orig_termios, t_termcaps **term)
+void		init_term_struct(struct termios *orig_termios, t_termcaps **term)
 {
 	if (!(*term = (t_termcaps*)ft_memalloc(sizeof(t_termcaps))))
 		exit_error(orig_termios, NULL, "malloc() error");
+	init_tty(orig_termios, term);
 	(*term)->hidecurstr = tgetstr("vi", NULL);
 	(*term)->showcurstr = tgetstr("ve", NULL);
 	(*term)->clearlinestr = tgetstr("ce", NULL);
@@ -41,16 +60,17 @@ void	init_term_struct(struct termios *orig_termios, t_termcaps **term)
 	(*term)->resetstr = tgetstr("me", NULL);
 }
 
-void	delete_term_struct(t_termcaps **term)
+void		delete_term_struct(t_termcaps **term)
 {
 	if (*term)
 	{
+		close((*term)->ttyfd);
 		free(*term);
 		*term = NULL;
 	}
 }
 
-void	init_wordlist(t_wordlist **wordlist, char **argv)
+void		init_wordlist(t_wordlist **wordlist, char **argv)
 {
 	int isfirst;
 
