@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 11:08:41 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 11:19:25 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 12:10:17 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 t_term	**get_term(void)
 {
 	static t_term	*term = NULL;
+
 	return (&term);
 }

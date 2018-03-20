@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:06:51 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 12:02:38 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 12:10:02 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_wordlist	*wordlist_delete_elem(t_wordlist **head, t_wordlist *elem)
 	{
 		elem->prev->next = elem->next;
 		new_curr = elem->prev;
-	}	
+	}
 	if (elem->next)
 	{
 		elem->next->prev = elem->prev;

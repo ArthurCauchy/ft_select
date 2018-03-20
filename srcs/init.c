@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 12:05:10 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 12:10:45 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ void		init_wordlist(t_wordlist **wordlist, char **argv)
 			isfirst = 0;
 		}
 		++argv;
-	}	
+	}
 }
