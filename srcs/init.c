@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 12:10:45 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 14:45:16 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		delete_term_struct(void)
 	}
 }
 
-void		init_wordlist(t_wordlist **wordlist, char **argv)
+void		init_wordlist(char **argv)
 {
 	int isfirst;
 
@@ -78,10 +78,10 @@ void		init_wordlist(t_wordlist **wordlist, char **argv)
 	++argv;
 	while (*argv)
 	{
-		wordlist_add_elem(wordlist, wordlist_new(ft_strdup(*argv)));
+		wordlist_add_elem(get_wordlist(), wordlist_new(ft_strdup(*argv)));
 		if (isfirst)
 		{
-			(*wordlist)->iscurrent = 1;
+			(*get_wordlist())->iscurrent = 1;
 			isfirst = 0;
 		}
 		++argv;

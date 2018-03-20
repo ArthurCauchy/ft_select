@@ -1,4 +1,6 @@
 TODO:
--fix segv quand lance avec env -i
 -taille de la fenetre
 -read error quand sigstop
+-gerer les signaux
+-verifier mieux les leaks
+-afficher/cacher le curseur

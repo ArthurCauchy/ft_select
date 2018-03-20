@@ -6,11 +6,18 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:06:51 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 12:10:02 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 14:55:37 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+t_wordlist	**get_wordlist(void)
+{
+	static t_wordlist	*wordlist = NULL;
+
+	return (&wordlist);
+}
 
 t_wordlist	*wordlist_new(char *str)
 {
@@ -64,4 +71,21 @@ t_wordlist	*wordlist_delete_elem(t_wordlist **head, t_wordlist *elem)
 	free(elem->word);
 	free(elem);
 	return (new_curr);
+}
+
+void		wordlist_delete_all(t_wordlist **head)
+{
+	t_wordlist	*prev;
+
+	prev = NULL;
+	while (*head)
+	{
+		prev = *head;
+		*head = (*head)->next;
+		if (prev)
+		{
+			free(prev->word);
+			free(prev);
+		}
+	}
 }

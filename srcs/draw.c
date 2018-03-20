@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:38:55 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 12:08:34 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 14:47:00 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	draw_word(int fd, t_wordlist *word)
 	ft_putstr_fd((*get_term())->resetstr, fd);
 }
 
-void		draw_wordlist(int fd, t_wordlist **wordlist)
+void		draw_wordlist(int fd)
 {
 	t_wordlist	*cur;
 
-	cur = *wordlist;
+	cur = *get_wordlist();
 	while (cur)
 	{
 		draw_word(fd, cur);
@@ -36,13 +36,13 @@ void		draw_wordlist(int fd, t_wordlist **wordlist)
 	}
 }
 
-void		draw_selected_wordlist(int fd, t_wordlist **wordlist)
+void		draw_selected_wordlist(int fd)
 {
 	t_wordlist	*cur;
 	char		isfirst;
 
 	isfirst = 1;
-	cur = *wordlist;
+	cur = *get_wordlist();
 	while (cur)
 	{
 		if (cur->isselected)
