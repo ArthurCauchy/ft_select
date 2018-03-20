@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:40:51 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/19 16:37:36 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 12:08:43 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static void	mainloop(struct termios *orig_termios, t_termcaps **term, t_wordlist **wordlist)
+static void	mainloop(t_wordlist **wordlist)
 {
 	char		keybuff[4];
 	int			read_size;
@@ -20,7 +20,7 @@ static void	mainloop(struct termios *orig_termios, t_termcaps **term, t_wordlist
 	t_wordlist	*curr_word;
 
 	curr_word = *wordlist;
-	draw_wordlist((*term)->ttyfd, *term, wordlist);
+	draw_wordlist((*get_term())->ttyfd, wordlist);
 	while ((read_size = read(0, &keybuff, 3)) > 0)
 	{
 		keybuff[read_size] = '\0';
@@ -50,7 +50,7 @@ static void	mainloop(struct termios *orig_termios, t_termcaps **term, t_wordlist
 		}
 		else if (is_esckey(keybuff))
 		{
-			draw_clearline((*term)->ttyfd, *term);
+			draw_clearline((*get_term())->ttyfd);
 			break ;
 		}
 		else if (is_delkey(keybuff))
@@ -58,7 +58,7 @@ static void	mainloop(struct termios *orig_termios, t_termcaps **term, t_wordlist
 			curr_word = wordlist_delete_elem(wordlist, curr_word);
 			if (curr_word == NULL)
 			{
-				draw_clearline((*term)->ttyfd, *term);
+				draw_clearline((*get_term())->ttyfd);
 				break ;
 			}
 			curr_word->iscurrent = 1;
@@ -67,34 +67,31 @@ static void	mainloop(struct termios *orig_termios, t_termcaps **term, t_wordlist
 			curr_word->isselected = (curr_word->isselected ? 0 : 1);
 		else if (keybuff[0] == 10)
 		{
-			draw_clearline((*term)->ttyfd, *term);
+			draw_clearline((*get_term())->ttyfd);
 			draw_selected_wordlist(1, wordlist);
 			break ;
 		}
-		draw_clearline((*term)->ttyfd, *term);
-		draw_wordlist((*term)->ttyfd, *term, wordlist);
+		draw_clearline((*get_term())->ttyfd);
+		draw_wordlist((*get_term())->ttyfd, wordlist);
 	}
 	if (read_size == -1)
-		exit_error(orig_termios, term, "read() error");
+		exit_error("read() error");
 }
 
 int			main(int argc, char **argv)
 {
-	struct termios	orig_termios;
-	t_termcaps		*term;
 	t_wordlist		*wordlist;
 
 	if (argc < 2)
 		return (0);
-	term = NULL;
 	wordlist = NULL;
-	enable_raw_mode(&orig_termios);
-	init_signals(&orig_termios);
+	init_termcap();
+	init_term_struct();
+	init_signals();
+	enable_raw_mode();
 	init_wordlist(&wordlist, argv);
-	init_termcap(&orig_termios);
-	init_term_struct(&orig_termios, &term);
-	mainloop(&orig_termios, &term, &wordlist);
-	disable_raw_mode(&orig_termios);
-	delete_term_struct(&term);
+	mainloop(&wordlist);
+	disable_raw_mode();
+	delete_term_struct();
 	return (0);
 }

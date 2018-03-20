@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/19 16:35:14 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 12:04:38 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,19 @@
 # include <fcntl.h>
 # include "libft.h"
 
-typedef struct	s_termcaps
+typedef struct	s_term
 {
-	int		ttyfd;
-	char	*hidecurstr;
-	char	*showcurstr;
-	char	*clearlinestr;
-	char	*gotostr;
-	char	*gostartlinestr;
-	char	*invstr;
-	char	*ulstr;
-	char	*resetstr;
-}				t_termcaps;
+	struct termios	orig_termios;
+	int				ttyfd;
+	char			*hidecurstr;
+	char			*showcurstr;
+	char			*clearlinestr;
+	char			*gotostr;
+	char			*gostartlinestr;
+	char			*invstr;
+	char			*ulstr;
+	char			*resetstr;
+}				t_term;
 
 typedef struct	s_wordlist
 {
@@ -53,23 +54,27 @@ t_wordlist		*wordlist_add_elem(t_wordlist **list, t_wordlist *new);
 t_wordlist		*wordlist_delete_elem(t_wordlist **head, t_wordlist *elem);
 
 /*
+** term.c
+*/
+
+t_term			**get_term(void);
+
+/*
 ** init.c
 */
 
-void			init_termcap(struct termios *orig_termios);
-void			init_term_struct(struct termios *orig_termios,
-		t_termcaps **term);
-void			delete_term_struct(t_termcaps **term);
+void			init_termcap(void);
+void			init_term_struct(void);
+void			delete_term_struct(void);
 void			init_wordlist(t_wordlist **wordlist, char **argv);
 
 /*
 ** utils.c
 */
 
-void			exit_error(struct termios *orig_termios,
-		t_termcaps **term, char *errmsg);
-void			enable_raw_mode(struct termios *orig_termios);
-void			disable_raw_mode(struct termios *orig_termios);
+void			exit_error(char *errmsg);
+void			enable_raw_mode(void);
+void			disable_raw_mode(void);
 
 /*
 ** keyboard.c
@@ -83,14 +88,14 @@ int				is_esckey(char *keybuff);
 ** draw.c
 */
 
-void			draw_wordlist(int fd, t_termcaps *term, t_wordlist **wordlist);
+void			draw_wordlist(int fd, t_wordlist **wordlist);
 void			draw_selected_wordlist(int fd, t_wordlist **wordlist);
-void			draw_clearline(int fd, t_termcaps *term);
+void			draw_clearline(int fd);
 
 /*
 ** signals.c
 */
 
-void			init_signals(struct termios *orig_termios);
+void			init_signals(void);
 
 #endif

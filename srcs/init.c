@@ -6,67 +6,67 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/19 15:03:09 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 12:05:10 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static void	init_tty(struct termios *orig_termios, t_termcaps **term)
-{
-	int	fd;
-
-	if (!isatty(0))
-	{
-		free(*term);
-		exit_error(orig_termios, NULL, "Not a tty !");
-	}
-	fd = open(ttyname(0), O_RDWR);
-	if (fd < 0)
-	{
-		free(*term);
-		exit_error(orig_termios, NULL, "Can't open term file !");
-	}
-	(*term)->ttyfd = fd;
-}
-
-void		init_termcap(struct termios *orig_termios)
+void		init_termcap(void)
 {
 	char	*termtype;
 	int		success;
 
 	termtype = getenv("TERM");
 	if (!termtype)
-		exit_error(orig_termios, NULL, "TERM env variable is not set !");
+		exit_error("TERM env variable is not set !");
 	success = tgetent(NULL, termtype);
 	if (success < 0)
-		exit_error(orig_termios, NULL, "Can't access the termcap database.");
+		exit_error("Can't access the termcap database.");
 	if (success == 0)
-		exit_error(orig_termios, NULL, "This terminal type is not defined.");
+		exit_error("This terminal type is not defined.");
 }
 
-void		init_term_struct(struct termios *orig_termios, t_termcaps **term)
+static void	init_tty(void)
 {
-	if (!(*term = (t_termcaps*)ft_memalloc(sizeof(t_termcaps))))
-		exit_error(orig_termios, NULL, "malloc() error");
-	init_tty(orig_termios, term);
-	(*term)->hidecurstr = tgetstr("vi", NULL);
-	(*term)->showcurstr = tgetstr("ve", NULL);
-	(*term)->clearlinestr = tgetstr("ce", NULL);
-	(*term)->gotostr = tgetstr("cm", NULL);
-	(*term)->gostartlinestr = tgetstr("ch", NULL);
-	(*term)->invstr = tgetstr("mr", NULL);
-	(*term)->ulstr = tgetstr("us", NULL);
-	(*term)->resetstr = tgetstr("me", NULL);
-}
+	int	fd;
 
-void		delete_term_struct(t_termcaps **term)
-{
-	if (*term)
+	if (!isatty(0))
 	{
-		close((*term)->ttyfd);
-		free(*term);
-		*term = NULL;
+		free(*get_term());
+		exit_error("Not a tty !");
+	}
+	fd = open(ttyname(0), O_RDWR);
+	if (fd < 0)
+	{
+		free(*get_term());
+		exit_error("Can't open term file !");
+	}
+	(*get_term())->ttyfd = fd;
+}
+
+void		init_term_struct(void)
+{
+	if (!(*get_term() = (t_term*)ft_memalloc(sizeof(t_term))))
+		exit_error("malloc() error");
+	init_tty();
+	(*get_term())->hidecurstr = tgetstr("vi", NULL);
+	(*get_term())->showcurstr = tgetstr("ve", NULL);
+	(*get_term())->clearlinestr = tgetstr("ce", NULL);
+	(*get_term())->gotostr = tgetstr("cm", NULL);
+	(*get_term())->gostartlinestr = tgetstr("ch", NULL);
+	(*get_term())->invstr = tgetstr("mr", NULL);
+	(*get_term())->ulstr = tgetstr("us", NULL);
+	(*get_term())->resetstr = tgetstr("me", NULL);
+}
+
+void		delete_term_struct(void)
+{
+	if (*get_term())
+	{
+		close((*get_term())->ttyfd);
+		free(*get_term());
+		*get_term() = NULL;
 	}
 }
 
