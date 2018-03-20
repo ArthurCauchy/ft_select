@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 12:04:38 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/20 14:25:29 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,25 @@ void			init_termcap(void);
 void			init_term_struct(void);
 void			delete_term_struct(void);
 void			init_wordlist(t_wordlist **wordlist, char **argv);
+
+/*
+** actions.c
+*/
+
+void			perform_actions(char *keybuff, t_wordlist **wordlist,
+		t_wordlist **cur_word);
+
+/*
+** action_[key].c
+*/
+
+void			perform_arrowkey_action(t_wordlist **wordlist,
+		t_wordlist **curr_word, int arrowkey_code);
+void			perform_esckey_action(void);
+void			perform_delkey_action(t_wordlist **wordlist,
+		t_wordlist **curr_word);
+void			perform_spacekey_action(t_wordlist **curr_word);
+void			perform_enterkey_action(t_wordlist **wordlist);
 
 /*
 ** utils.c
