@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 15:01:38 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/21 13:28:38 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <termcap.h>
 # include <termios.h>
 # include <unistd.h>
+# include <signal.h>
 # include <fcntl.h>
 # include "libft.h"
 
