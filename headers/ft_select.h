@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/21 13:28:38 by arthur           ###   ########.fr       */
+/*   Updated: 2018/03/22 14:47:34 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <errno.h>
 # include "libft.h"
 
 typedef struct	s_term
@@ -29,12 +30,17 @@ typedef struct	s_term
 	int				ttyfd;
 	char			*hidecurstr;
 	char			*showcurstr;
+	char			*clearscreenstr;
 	char			*clearlinestr;
-	char			*gotostr;
+	char			*dellinestr;
 	char			*gostartlinestr;
+	char			*savecurstr;
+	char			*restorecurstr;
 	char			*invstr;
 	char			*ulstr;
 	char			*resetstr;
+	int				nbcol;
+	int				nbrow;
 }				t_term;
 
 typedef struct	s_wordlist
@@ -110,7 +116,7 @@ int				is_esckey(char *keybuff);
 
 void			draw_wordlist(int fd);
 void			draw_selected_wordlist(int fd);
-void			draw_clearline(int fd);
+void			draw_clear(int fd);
 
 /*
 ** signals.c

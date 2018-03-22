@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:38:55 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 14:47:00 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/22 14:47:29 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		draw_selected_wordlist(int fd)
 	}
 }
 
-void		draw_clearline(int fd)
+void		draw_clear(int fd)
 {
 	ft_putstr_fd(tgoto((*get_term())->gostartlinestr, 0, 0), fd);
 	ft_putstr_fd((*get_term())->clearlinestr, fd);

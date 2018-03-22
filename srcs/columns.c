@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action_delkey.c                                    :+:      :+:    :+:   */
+/*   columns.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/20 13:48:09 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/22 14:18:39 by acauchy          ###   ########.fr       */
+/*   Created: 2018/03/22 14:37:32 by acauchy           #+#    #+#             */
+/*   Updated: 2018/03/22 14:47:31 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	perform_delkey_action(t_wordlist **curr_word)
+int	compute_col_size(t_wordlist **wordlist)
 {
-	*curr_word = wordlist_delete_elem(get_wordlist(), *curr_word);
-	if (*curr_word == NULL)
+	t_wordlist	*cur;
+	int			max;
+
+	cur = *wordlist;
+	max = 0;
+	while (cur)
 	{
-		draw_clear((*get_term())->ttyfd);
-		wordlist_delete_all(get_wordlist());
-		disable_raw_mode();
-		delete_term_struct();
-		exit(0);
+		if (ft_strlen(cur->word) > max)
+			max = ft_strlen(cur->word);
+		cur = cur->next;
 	}
-	(*curr_word)->iscurrent = 1;
+	return (max);
 }

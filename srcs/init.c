@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 14:45:16 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/22 14:37:17 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,17 @@ void		init_term_struct(void)
 	init_tty();
 	(*get_term())->hidecurstr = tgetstr("vi", NULL);
 	(*get_term())->showcurstr = tgetstr("ve", NULL);
+	(*get_term())->clearscreenstr = tgetstr("cd", NULL);
 	(*get_term())->clearlinestr = tgetstr("ce", NULL);
-	(*get_term())->gotostr = tgetstr("cm", NULL);
+	(*get_term())->dellinestr = tgetstr("dl", NULL);
 	(*get_term())->gostartlinestr = tgetstr("ch", NULL);
+	(*get_term())->savecurstr = tgetstr("sc", NULL);
+	(*get_term())->restorecurstr = tgetstr("rc", NULL);
 	(*get_term())->invstr = tgetstr("mr", NULL);
 	(*get_term())->ulstr = tgetstr("us", NULL);
 	(*get_term())->resetstr = tgetstr("me", NULL);
+	(*get_term())->nbcol = tgetnum("co");
+	(*get_term())->nbrow = tgetnum("li");
 }
 
 void		delete_term_struct(void)
