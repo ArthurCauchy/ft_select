@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:06:51 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 14:55:37 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/21 13:28:02 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ t_wordlist	*wordlist_new(char *str)
 t_wordlist	*wordlist_add_elem(t_wordlist **list, t_wordlist *new)
 {
 	t_wordlist	*cur;
-	t_wordlist	*prev;
 
 	if (*list)
 	{
 		cur = *list;
-		prev = cur->prev;
 		while (cur->next)
 			cur = cur->next;
 		cur->next = new;
