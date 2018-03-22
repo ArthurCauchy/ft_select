@@ -1,6 +1,7 @@
 TODO:
 -taille de la fenetre
--read error quand sigstop
--gerer les signaux
 -verifier mieux les leaks
 -afficher/cacher le curseur
+-go to next elem when selecting one
+-affichage sur plusieurs lignes
+	-clearline -> save/restore du curseur
