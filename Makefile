@@ -33,6 +33,7 @@ HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 SRC_PATH = srcs
 SRC_NAME = main.c \
 		   s_wordlist.c \
+		   s_wordlist2.c \
 		   term.c \
 		   init.c \
 		   actions.c \

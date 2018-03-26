@@ -8,3 +8,5 @@ TODO:
 -afficher sur plusieurs colonnes
 	-ne jamais depasser de la ligne sous peine de casser tout
 	-retenir le nombre de lignes affichees pour savoir combien en delete
+-ca risque de faire nimp quand on resize un truc sur plusieurs lignes (qui va se tasser en plusieurs colonnes)
+	-les actions du sigwinch sont appliques avant ou apres le resize ?

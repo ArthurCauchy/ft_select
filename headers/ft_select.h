@@ -61,6 +61,7 @@ t_wordlist		*wordlist_new(char *str);
 t_wordlist		*wordlist_add_elem(t_wordlist **list, t_wordlist *new);
 t_wordlist		*wordlist_delete_elem(t_wordlist **head, t_wordlist *elem);
 void			wordlist_delete_all(t_wordlist **head);
+int				wordlist_count_words(t_wordlist	**wordlist);
 
 /*
 ** term.c
