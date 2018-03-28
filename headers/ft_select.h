@@ -6,14 +6,12 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/22 14:47:34 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/28 14:28:31 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __FT_SELECT_H
 # define __FT_SELECT_H
-
-# include <stdio.h>
 
 # include <stdlib.h>
 # include <termcap.h>
@@ -22,11 +20,20 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <sys/ioctl.h>
 # include "libft.h"
+
+typedef struct	s_display
+{
+	int	col_per_line;
+	int	lines;
+	int	colsize;
+}				t_display;
 
 typedef struct	s_term
 {
 	struct termios	orig_termios;
+	t_display		*display;
 	int				ttyfd;
 	char			*hidecurstr;
 	char			*showcurstr;
@@ -34,6 +41,7 @@ typedef struct	s_term
 	char			*clearlinestr;
 	char			*dellinestr;
 	char			*gostartlinestr;
+	char			*goupstr;
 	char			*savecurstr;
 	char			*restorecurstr;
 	char			*invstr;
@@ -68,6 +76,13 @@ int				wordlist_count_words(t_wordlist	**wordlist);
 */
 
 t_term			**get_term(void);
+
+/*
+** display.c
+*/
+
+int				compute_maxcol(t_wordlist **wordlist);
+void			compute_display_size(void);
 
 /*
 ** init.c

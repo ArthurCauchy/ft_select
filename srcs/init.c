@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/22 14:37:17 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/28 14:32:55 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ static void	init_tty(void)
 
 void		init_term_struct(void)
 {
+	struct ttysize	ts;
+	
+	ioctl(0, TIOCGSIZE, &ts);
 	if (!(*get_term() = (t_term*)ft_memalloc(sizeof(t_term))))
+		exit_error("malloc() error");
+	if (!((*get_term())->display = (t_display*)ft_memalloc(sizeof(t_display))))
 		exit_error("malloc() error");
 	init_tty();
 	(*get_term())->hidecurstr = tgetstr("vi", NULL);
@@ -56,13 +61,14 @@ void		init_term_struct(void)
 	(*get_term())->clearlinestr = tgetstr("ce", NULL);
 	(*get_term())->dellinestr = tgetstr("dl", NULL);
 	(*get_term())->gostartlinestr = tgetstr("ch", NULL);
+	(*get_term())->goupstr = tgetstr("up", NULL);
 	(*get_term())->savecurstr = tgetstr("sc", NULL);
 	(*get_term())->restorecurstr = tgetstr("rc", NULL);
 	(*get_term())->invstr = tgetstr("mr", NULL);
 	(*get_term())->ulstr = tgetstr("us", NULL);
 	(*get_term())->resetstr = tgetstr("me", NULL);
-	(*get_term())->nbcol = tgetnum("co");
-	(*get_term())->nbrow = tgetnum("li");
+	(*get_term())->nbcol = ts.ts_cols;
+	(*get_term())->nbrow = ts.ts_lines;
 }
 
 void		delete_term_struct(void)
@@ -70,6 +76,7 @@ void		delete_term_struct(void)
 	if (*get_term())
 	{
 		close((*get_term())->ttyfd);
+		free((*get_term())->display);
 		free(*get_term());
 		*get_term() = NULL;
 	}

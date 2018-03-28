@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/03/20 14:09:29 by acauchy          ###   ########.fr        #
+#    Updated: 2018/03/28 11:01:39 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_NAME = main.c \
 		   s_wordlist.c \
 		   s_wordlist2.c \
 		   term.c \
+		   display.c \
 		   init.c \
 		   actions.c \
 		   action_arrowkey.c \
