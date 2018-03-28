@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:38:55 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 15:30:18 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/28 16:07:20 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,7 @@ static void	draw_word(int fd, t_wordlist *word)
 	}
 }
 
-/*void		draw_wordlist(int fd)
-{
-	t_wordlist	*cur;
-
-	cur = *get_wordlist();
-	while (cur)
-	{
-		draw_word(fd, cur);
-		if (cur->next)
-			ft_putchar_fd(' ', fd);
-		cur = cur->next;
-	}
-}*/
-
-void	draw_wordlist(int fd)
+void		draw_wordlist(int fd)
 {
 	t_wordlist	*cur;
 	int			curr_col;
@@ -52,7 +38,7 @@ void	draw_wordlist(int fd)
 
 	cur = *get_wordlist();
 	curr_col = 1;
-	curr_line = 1; 
+	curr_line = 1;
 	while (cur)
 	{
 		if (curr_col != 1)
@@ -78,7 +64,6 @@ void	draw_wordlist(int fd)
 	ft_putstr_fd((*get_term())->savecurstr, fd);
 }
 
-
 void		draw_selected_wordlist(int fd)
 {
 	t_wordlist	*cur;
@@ -98,12 +83,6 @@ void		draw_selected_wordlist(int fd)
 		cur = cur->next;
 	}
 }
-
-/*void		draw_clear(int fd)
-{
-	ft_putstr_fd(tgoto((*get_term())->gostartlinestr, 0, 0), fd);
-	ft_putstr_fd((*get_term())->clearlinestr, fd);
-}*/
 
 void		draw_clear(int fd)
 {

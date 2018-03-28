@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 11:02:22 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 11:40:38 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/28 16:02:14 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	wordlist_count_words(t_wordlist **wordlist)
 {
 	t_wordlist	*cur;
-	int					count;
+	int			count;
 
 	cur = *wordlist;
 	count = 0;

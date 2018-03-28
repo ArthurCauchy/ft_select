@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 14:32:55 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/28 16:02:42 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	init_tty(void)
 void		init_term_struct(void)
 {
 	struct ttysize	ts;
-	
+
 	ioctl(0, TIOCGSIZE, &ts);
 	if (!(*get_term() = (t_term*)ft_memalloc(sizeof(t_term))))
 		exit_error("malloc() error");

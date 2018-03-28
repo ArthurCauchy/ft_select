@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 14:37:32 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 14:24:26 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/28 16:01:28 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int	compute_maxcol(t_wordlist **wordlist)
+int		compute_maxcol(t_wordlist **wordlist)
 {
 	t_wordlist	*cur;
 	int			max;

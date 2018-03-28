@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:12:27 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 15:59:04 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/28 16:04:08 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	sig_handler(int signo)
 {
-	struct ttysize  ts;
+	struct ttysize	ts;
 	int				tmp;
 
 	if (signo == SIGWINCH)

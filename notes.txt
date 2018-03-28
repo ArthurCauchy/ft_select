@@ -3,3 +3,4 @@ TODO:
 -afficher/cacher le curseur
 -arrow up et down un peu degeu
 -des fois le resize merde ?
+-verifier que l'ecran a la place pour tout en hauteur
