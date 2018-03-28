@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 13:30:04 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/22 14:17:37 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/28 14:50:03 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,37 @@
 
 void	perform_arrowkey_action(t_wordlist **curr_word, int arrowkey_code)
 {
-	if (arrowkey_code == 3)
+	int	tmp;
+
+	if (arrowkey_code == 1)
+	{
+		(*curr_word)->iscurrent = 0;
+		tmp = 0;
+		while (tmp < (*get_term())->display->col_per_line)
+		{
+			if ((*curr_word)->prev)
+				*curr_word = (*curr_word)->prev;
+			else
+				break ;
+			++tmp;
+		}
+		(*curr_word)->iscurrent = 1;
+	}
+	else if (arrowkey_code == 2)
+	{
+		(*curr_word)->iscurrent = 0;
+		tmp = 0;
+		while (tmp < (*get_term())->display->col_per_line)
+		{
+			if ((*curr_word)->next)
+				*curr_word = (*curr_word)->next;
+			else
+				break ;
+			++tmp;
+		}
+		(*curr_word)->iscurrent = 1;
+	}
+	else if (arrowkey_code == 3)
 	{
 		(*curr_word)->iscurrent = 0;
 		if ((*curr_word)->next)
