@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:12:27 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/29 12:45:07 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/29 15:39:23 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ static void	sighandler_sigwinch(int signo)
 {
 	int				tmp;
 	int				fd;
+	int				oldnbcol;
 
 	if (signo != SIGWINCH)
 		return ;
 	fd = (*get_term())->ttyfd;
+	oldnbcol = (*get_term())->nbcol;
 	update_term_size();
 	draw_clear(fd);
-	if ((*get_term())->nbcol <
-			((*get_term())->display->col_per_line
-			* (*get_term())->display->colsize)
-			+ ((*get_term())->display->col_per_line - 1))
+	if ((*get_term())->nbcol < oldnbcol)
 	{
 		tmp = (*get_term())->display->lines;
-		while (tmp > 1)
+		while (tmp > 0)
 		{
 			ft_putstr_fd(tgoto((*get_term())->goupstr, 0, 0), fd);
+			ft_putstr_fd(tgoto((*get_term())->gostartlinestr, 0, 0), fd);
 			ft_putstr_fd((*get_term())->clearlinestr, fd);
 			--tmp;
 		}
