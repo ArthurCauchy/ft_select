@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 12:06:59 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 16:02:42 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/29 09:03:27 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ static void	init_tty(void)
 
 void		init_term_struct(void)
 {
-	struct ttysize	ts;
-
-	ioctl(0, TIOCGSIZE, &ts);
 	if (!(*get_term() = (t_term*)ft_memalloc(sizeof(t_term))))
 		exit_error("malloc() error");
 	if (!((*get_term())->display = (t_display*)ft_memalloc(sizeof(t_display))))
@@ -67,8 +64,7 @@ void		init_term_struct(void)
 	(*get_term())->invstr = tgetstr("mr", NULL);
 	(*get_term())->ulstr = tgetstr("us", NULL);
 	(*get_term())->resetstr = tgetstr("me", NULL);
-	(*get_term())->nbcol = ts.ts_cols;
-	(*get_term())->nbrow = ts.ts_lines;
+	update_term_size();
 }
 
 void		delete_term_struct(void)

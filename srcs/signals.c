@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 14:12:27 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 16:04:08 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/29 09:01:08 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 static void	sig_handler(int signo)
 {
-	struct ttysize	ts;
 	int				tmp;
 
 	if (signo == SIGWINCH)
 	{
-		ioctl(0, TIOCGSIZE, &ts);
-		(*get_term())->nbcol = ts.ts_cols;
-		(*get_term())->nbrow = ts.ts_lines;
+		update_term_size();
 		draw_clear((*get_term())->ttyfd);
 		if ((*get_term())->nbcol < ((*get_term())->display->col_per_line * (*get_term())->display->colsize) + ((*get_term())->display->col_per_line - 1))
 		{

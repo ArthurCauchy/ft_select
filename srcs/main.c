@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:40:51 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 16:04:57 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/29 09:02:38 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 
 static void	restore_term(void)
 {
-	struct ttysize	ts;
-
 	enable_raw_mode();
 	ft_putstr_fd((*get_term())->savecurstr, (*get_term())->ttyfd);
-	ioctl(0, TIOCGSIZE, &ts);
-	(*get_term())->nbcol = ts.ts_cols;
-	(*get_term())->nbrow = ts.ts_lines;
+	update_term_size();
 	compute_display_size();
 	draw_wordlist((*get_term())->ttyfd);
 }

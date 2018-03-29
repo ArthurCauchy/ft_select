@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/28 15:50:38 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/29 08:57:23 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void			perform_enterkey_action(void);
 void			exit_error(char *errmsg);
 void			enable_raw_mode(void);
 void			disable_raw_mode(void);
+void			update_term_size(void);
 
 /*
 ** keyboard.c

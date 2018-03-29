@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:55:47 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/20 12:07:18 by acauchy          ###   ########.fr       */
+/*   Updated: 2018/03/29 08:56:41 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,13 @@ void	enable_raw_mode(void)
 void	disable_raw_mode(void)
 {
 	tcsetattr(0, TCSAFLUSH, &(*get_term())->orig_termios);
+}
+
+void	update_term_size(void)
+{
+	struct ttysize	ts;
+
+	ioctl(0, TIOCGSIZE, &ts);
+	(*get_term())->nbcol = ts.ts_cols;
+	(*get_term())->nbrow = ts.ts_lines;
 }
