@@ -6,7 +6,7 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:39:03 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/29 08:57:23 by arthur           ###   ########.fr       */
+/*   Updated: 2018/03/29 12:42:04 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,14 @@ int				is_esckey(char *keybuff);
 ** draw.c
 */
 
-void			draw_wordlist(int fd);
 void			draw_selected_wordlist(int fd);
 void			draw_clear(int fd);
+
+/*
+** draw_wordlist.c
+*/
+
+void			draw_wordlist(int fd);
 
 /*
 ** signals.c

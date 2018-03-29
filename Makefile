@@ -6,7 +6,7 @@
 #    By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 10:04:49 by acauchy           #+#    #+#              #
-#    Updated: 2018/03/28 11:01:39 by acauchy          ###   ########.fr        #
+#    Updated: 2018/03/29 12:32:29 by acauchy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC_NAME = main.c \
 		   utils.c \
 		   keyboard.c \
 		   draw.c \
+		   draw_wordlist.c \
 		   signals.c
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

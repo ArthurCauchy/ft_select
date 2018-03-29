@@ -6,13 +6,13 @@
 /*   By: acauchy <acauchy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 13:30:04 by acauchy           #+#    #+#             */
-/*   Updated: 2018/03/29 09:22:01 by arthur           ###   ########.fr       */
+/*   Updated: 2018/03/29 12:30:45 by acauchy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static void	perform_arrowkey_action_up(wordlist **curr_word)
+static void	perform_arrowkey_action_up(t_wordlist **curr_word)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ static void	perform_arrowkey_action_up(wordlist **curr_word)
 	(*curr_word)->iscurrent = 1;
 }
 
-static void	perform_arrowkey_action_down(wordlist **curr_word)
+static void	perform_arrowkey_action_down(t_wordlist **curr_word)
 {
 	int	i;
 
